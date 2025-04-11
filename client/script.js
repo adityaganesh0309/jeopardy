@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // When the "Start" button is clicked
   startButton.addEventListener('click', () => {
+    // Disable the start button when the timer is active
+    startButton.disabled = true;
+    
     startButton.style.display = 'none';
     timer.classList.remove('hidden');
     let timeLeft = 35;
@@ -48,31 +51,17 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(timerInterval);
         isTimerActive = false;
         backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
         alarmSound.play();
         timer.classList.add('hidden');
-        submissionsContainer.classList.add('hidden');
+        
+        // Re-enable and show the start button after the timer finishes
+        startButton.style.display = 'inline-block'; // Make it visible again
+        startButton.disabled = false; // Re-enable the button for next click
       }
     }, 1000);
 
-    // Show the submissions container
-    submissionsContainer.classList.remove('hidden');
-    fetchSubmissions();  // Fetch submissions from the server
   });
-
-  // Fetch submissions from the server and display them
-  function fetchSubmissions() {
-    fetch('http://localhost:3000/view-submissions')
-      .then(response => response.json())
-      .then(submissions => {
-        // Initially populate the bubbles
-        submissions.submissions.forEach((submission, index) => {
-          createBubble(index + 1);  // Pre-create the bubbles without text
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching submissions:', error);
-      });
-  }
 
   // Function to update the text of a bubble
   function showSubmission(name, answer) {
@@ -80,15 +69,26 @@ document.addEventListener("DOMContentLoaded", () => {
                         .find(bubble => bubble.textContent === '');
     
     if (bubble) {
-      bubble.textContent = `${name}: ${answer}`;
+      // Show the name initially
+      bubble.textContent = name; 
       playBubbleSound();  // Play sound when bubble updates
+      
+      // Add the click event listener to toggle between name and answer
+      bubble.addEventListener('click', function() {
+        if (bubble.textContent === name) {
+          bubble.textContent = answer;  // Show answer when name is displayed
+        } else if (bubble.textContent === answer) {
+          bubble.textContent = '';  // Clear the bubble when answer is displayed
+        }
+      });
     }
   }
+
 
   // Function to play the bubble sound
   function playBubbleSound() {
     const bubbleSound = new Audio('bubble_sound.mp3');
     bubbleSound.play();
   }
-});
 
+});
