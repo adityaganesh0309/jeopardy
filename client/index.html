@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Timer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Start Button -->
+  <div class="container">
+    <button id="startButton" class="start-button">Start</button>
+  </div>
+
+  <!-- Timer -->
+  <div id="timer" class="timer hidden">
+    <span id="timeRemaining">35</span> seconds remaining
+  </div>
+
+  <!-- Submission Container -->
+  <div id="submissions" class="submissions hidden">
+    <!-- This is where the name: answer bubbles will appear -->
+  </div>
+
+  <!-- Audio elements for music and alarm -->
+  <audio id="backgroundMusic" loop>
+    <source src="timer_music.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <audio id="alarmSound">
+    <source src="alarm.wav" type="audio/wav">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
