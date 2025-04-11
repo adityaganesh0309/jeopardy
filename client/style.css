@@ -37,7 +37,7 @@ body::before {
 /* Container for centered content */
 .container {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 50px); /* 50px above center */
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -48,9 +48,9 @@ body::before {
   font-size: 72px; /* Increased font size */
   padding: 20px 40px; /* Increased padding */
   cursor: pointer;
-  border-radius: 20px; /* Increased border radius */
-  background-color: green; /* Green background */
-  color: white; /* White text color for visibility */
+  border-radius: 10px; /* Increased border radius */
+  background-color: rgb(116, 241, 116); /* Green background */
+  color: rgb(0, 0, 0); /* White text color for visibility */
   z-index: 10;
 }
 
@@ -67,35 +67,54 @@ body::before {
 
 .submissions {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 50px); /* 50px above center */
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: space-between;
-  width: 400px; /* Increased width */
-  height: 400px; /* Increased height */
-  flex-wrap: wrap;
   z-index: 5;
 }
 
 .submission {
+  position: absolute;
   padding: 20px 40px;
   background-color: lightblue;
+  border: 2px solid black;
+  transform: translate(-50%, -50%);
   border-radius: 20px;
   cursor: pointer;
   text-align: center;
   transition: transform 0.2s;
-  width: 180px;
+  width: 150px;
   min-height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 1;
-  font-size: 28px; /* ⬅️ Add this line */
-  font-weight: bold; /* Optional */
-  
-  /* Add black outline */
-  border: 2px solid black; /* Black border for the outline */
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Top-left */
+.submission:nth-child(1) {
+  top: -200px;
+  left: -200px;
+}
+
+/* Top-right */
+.submission:nth-child(2) {
+  top: -200px;
+  left: 200px;
+}
+
+/* Bottom-right */
+.submission:nth-child(3) {
+  top: 200px;
+  left: 200px;
+}
+
+/* Bottom-left */
+.submission:nth-child(4) {
+  top: 200px;
+  left: -200px;
 }
 
 .submission:hover {
@@ -105,31 +124,6 @@ body::before {
 .submission.clicked {
   background-color: lightcoral;
   transform: scale(1.1);
-}
-
-/* Position the pre-created bubbles with adjusted positions */
-.submission:nth-child(1) {
-  position: absolute;
-  top: -75px;     /* Moved up 100px */
-  left: -250px;    /* Moved left an additional 100px from -150 */
-}
-
-.submission:nth-child(2) {
-  position: absolute;
-  top: -75px;     /* Moved up 100px */
-  right: -250px;   /* Moved right an additional 200px from -150 */
-}
-
-.submission:nth-child(3) {
-  position: absolute;
-  bottom: -75px;  /* Moved down 100px */
-  right: -250px;   /* Moved right an additional 100px from -150 */
-}
-
-.submission:nth-child(4) {
-  position: absolute;
-  bottom: -75px;  /* Moved down 100px */
-  left: -250px;    /* Moved left an additional 100px from -150 */
 }
 
 /* Initial styling for the toggle button */
@@ -155,4 +149,57 @@ body::before {
 /* Optional: You can also scale the button a bit when it's "on" for visual effect */
 .final-toggle.on {
   transform: scale(1.1);
+}
+
+.scoreboard {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  background: transparent;
+  gap: 25px;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.4em;       /* optionally make text bigger too */
+}
+
+.name-tag {
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 6px 6px 0 0;
+  width: 200px;
+  text-align: center;
+}
+
+.points {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-top: none;
+  width: 200px;
+  text-align: center;
+  font-size: 1.4em;
+  background: white;
+  border-radius: 0 0 6px 6px;
+}
+
+/* Custom colors for each name tag */
+.score:nth-child(1) .name-tag {
+  background: linear-gradient(to right, crimson, rgb(87, 87, 87), #ffc354); /* Wheat is also a blonde-ish tone */
+}
+
+.score:nth-child(2) .name-tag {
+  background: linear-gradient(to right, purple, blue, gold);
+}
+
+.score:nth-child(3) .name-tag {
+  background: linear-gradient(to right, red, gold, blue);
+}
+
+.score:nth-child(4) .name-tag {
+  background: linear-gradient(to right, red, white, blue);
+  color: black; /* better contrast for white */
 }
