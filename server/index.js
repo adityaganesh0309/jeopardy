@@ -32,23 +32,37 @@ wss.on('connection', (ws) => {
     });
 });
 
+app.post('/submit-wager', (req, res) => {
+    const { name = '', wager = ''} = req.body || {};
+    console.log({ name, wager });
+
+    res.json({ message: 'Wager data acquired!', data: { name, wager } });
+
+    // Optionally, broadcast the new wagers to all WebSocket clients
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ name, wager }));
+        }
+    });
+})
+
 // Endpoint to handle form submission (POST request)
 app.post('/submit-form', (req, res) => {
-    const { name = '', answer = '', wager = '' } = req.body || {};
-    console.log({ name, answer, wager });
+    const { name = '', answer = ''} = req.body || {};
+    console.log({ name, answer });
 
     // Save the form submission to the array
-    formResponses.push({ name, answer, wager });
+    formResponses.push({ name, answer });
 
-    console.log(`Received form submission: Name: ${name}, Answer: ${answer}, Wager: ${wager}`);
+    console.log(`Received form submission: Name: ${name}, Answer: ${answer}`);
 
     // Respond to the client with a success message
-    res.json({ message: 'Form submitted successfully!', data: { name, answer, wager } });
+    res.json({ message: 'Form submitted successfully!', data: { name, answer } });
 
     // Optionally, broadcast the new submission to all WebSocket clients
     wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify({ name, answer, wager }));
+            client.send(JSON.stringify({ name, answer }));
         }
     });
 });
