@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const http = require('http');
 const WebSocket = require('ws');
 const app = express();
@@ -11,11 +10,7 @@ const server = http.createServer(app);
 // Create WebSocket server on the same HTTP server
 const wss = new WebSocket.Server({ server });
 
-// Middleware to parse the incoming form data as JSON
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// An array to store the form submissions (you can later store this in a database)
+// An array to store the form submissions
 let formResponses = [];
 
 // WebSocket connection handling
@@ -35,21 +30,20 @@ wss.on('connection', (ws) => {
 
 // Endpoint to handle form submission (POST request)
 app.post('/submit-form', (req, res) => {
-    const { name, answer } = req.body; // Extract the form data
-    const timestamp = new Date().toISOString();  // Get timestamp in ISO format
+    const { name, answer, wager } = req.body; // Extract the form data
 
     // Save the form submission to the array
-    formResponses.push({ name, answer, timestamp });
+    formResponses.push({ name, answer, wager });
 
-    console.log(`Received form submission: Name: ${name}, Answer: ${answer}`);
+    console.log(`Received form submission: Name: ${name}, Answer: ${answer}, Wager: ${wager}`);
 
     // Respond to the client with a success message
-    res.json({ message: 'Form submitted successfully!', data: { name, answer } });
+    res.json({ message: 'Form submitted successfully!', data: { name, answer, wager } });
 
     // Optionally, broadcast the new submission to all WebSocket clients
     wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify({ name, answer, timestamp }));
+            client.send(JSON.stringify({ name, answer, wager }));
         }
     });
 });
