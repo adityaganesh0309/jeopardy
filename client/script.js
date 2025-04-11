@@ -95,41 +95,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleStatus = document.getElementById('toggleStatus');
   
     if (bubble) {
-      bubble.textContent = name;
-      playBubbleSound();
-  
-      // Keep track of state using a data attribute
       bubble.dataset.state = "name";
+      bubble.textContent = name;
+      playBubbleSound();      
   
-      bubble.addEventListener('click', function () {
+      bubble.onclick = function () {
         const isFinalJeopardy = toggleStatus.textContent === "On";
+      
         if (isFinalJeopardy) {
-          // Final Jeopardy: name -> answer -> wager -> clear
-          if (bubble.dataset.state === "name") {
+          const state = bubble.dataset.state;
+          if (state === "name") {
             bubble.textContent = answer;
             bubble.dataset.state = "answer";
-            bubble.dataset.name = name; // Store the name for later wager lookup
-          } else if (bubble.dataset.state === "answer") {
+            bubble.dataset.name = name;
+          } else if (state === "answer") {
             const name = bubble.dataset.name;
-            const wager = wagers[name]; // Lookup wager using stored name
+            const wager = wagers[name];
             bubble.textContent = wager !== undefined ? `$${wager}` : "[no wager]";
             bubble.dataset.state = "wager";
           } else {
             bubble.textContent = "";
             bubble.dataset.state = "name";
-            delete bubble.dataset.name; // Optional: clear stored name
+            delete bubble.dataset.name;
           }
+      } else {
+        // Regular: name -> answer -> clear
+        if (bubble.dataset.state === "name") {
+          bubble.textContent = answer;
+          bubble.dataset.state = "answer";
         } else {
-          // Regular: name -> answer -> clear
-          if (bubble.dataset.state === "name") {
-            bubble.textContent = answer;
-            bubble.dataset.state = "answer";
-          } else {
-            bubble.textContent = "";
-            bubble.dataset.state = "name";
+          bubble.textContent = "";
+          bubble.dataset.state = "name";
           }
         }        
-      });
+      }
     }
   }
   
