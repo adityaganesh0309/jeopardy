@@ -1,3 +1,10 @@
+/* Ensure html and body take up the full height of the screen */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Overlay background image with reduced opacity */
 body {
   font-family: Arial, sans-serif;
   display: flex;
@@ -7,8 +14,27 @@ body {
   margin: 0;
   flex-direction: column;
   position: relative;
+
+  /* No background image directly on body */
 }
 
+/* Pseudo-element for background image overlay */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5;  /* 50% opacity for the background */
+  z-index: -1;  /* Ensure it stays behind all other content */
+}
+
+/* Container for centered content */
 .container {
   position: absolute;
   top: 50%;
@@ -17,11 +43,14 @@ body {
   z-index: 10;
 }
 
+/* Start button with green background */
 .start-button {
   font-size: 72px; /* Increased font size */
   padding: 20px 40px; /* Increased padding */
   cursor: pointer;
   border-radius: 20px; /* Increased border radius */
+  background-color: green; /* Green background */
+  color: white; /* White text color for visibility */
   z-index: 10;
 }
 
@@ -64,6 +93,9 @@ body {
   opacity: 1;
   font-size: 28px; /* ⬅️ Add this line */
   font-weight: bold; /* Optional */
+  
+  /* Add black outline */
+  border: 2px solid black; /* Black border for the outline */
 }
 
 .submission:hover {
@@ -106,7 +138,7 @@ body {
   top: 10px;
   left: 10px;
   padding: 10px;
-  background-color: #ccc; /* Initial off color */
+  background-color: #ffcccb; /* Light red color when off */
   color: white;
   font-size: 16px;
   border: none;
