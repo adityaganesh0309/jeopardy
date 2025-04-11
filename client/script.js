@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Function to update the text of a bubble
-  function showSubmission(name, answer, wager) {
+  function showSubmission(name, answer) {
     const bubble = Array.from(submissionsContainer.getElementsByClassName('submission'))
                         .find(bubble => bubble.textContent === '');
     const toggleStatus = document.getElementById('toggleStatus');
