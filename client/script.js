@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const submissionsContainer = document.getElementById('submissions');
   
   const backgroundMusic = document.getElementById('backgroundMusic');
+  const musicTracks = ['timer_music_1.mp3', 'timer_music_2.mp3', 'timer_music_3.mp3'];
+  let currentTrackIndex = 0;
+  backgroundMusic.src = musicTracks[currentTrackIndex];
   const alarmSound = document.getElementById('alarmSound');
   
   let timerInterval;
@@ -59,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let timeLeft = 35;
     timeRemaining.textContent = timeLeft;
     isTimerActive = true;
+    backgroundMusic.load();
     backgroundMusic.play();
 
     // Start countdown
@@ -70,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
         isTimerActive = false;
         backgroundMusic.pause();
         backgroundMusic.currentTime = 0;
+        currentTrackIndex = (currentTrackIndex + 1) % musicTracks.length;
+        backgroundMusic.src = musicTracks[currentTrackIndex];
+
         alarmSound.play();
         timer.classList.add('hidden');
         
