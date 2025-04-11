@@ -62,7 +62,7 @@ body::before {
   font-size: 48px; /* Increased font size */
   margin-top: 40px; /* Increased margin */
   position: absolute;
-  top: calc(50% - 70px); /* Adjusted position */
+  top: calc(50% - 120px); /* Adjusted position */
 }
 
 .hidden {
