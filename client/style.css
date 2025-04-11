@@ -1,96 +1,101 @@
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    flex-direction: column;
-    position: relative;
-  }
-  
-  .container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10; /* Ensure the start button stays above the bubbles */
-  }
-  
-  .start-button {
-    font-size: 36px;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 10px; /* Optional: Add rounded corners */
-    z-index: 10; /* Ensure the button stays above the bubbles */
-  }
-  
-  .timer {
-    font-size: 24px;
-    margin-top: 20px;
-    position: absolute; /* Make it positionable */
-    top: calc(50% - 35px); /* Move 15px up from the center */
-  }
-  
-  
-  .hidden {
-    display: none;
-  }
-  
-  .submissions {
-    position: absolute;
-    top: 50%; /* Centering the bubbles around the timer */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: space-between;
-    width: 200px; /* Adjust width so the bubbles spread evenly */
-    height: 200px; /* Adjust height so the bubbles are spaced correctly */
-    flex-wrap: wrap;
-    z-index: 5; /* Ensure the bubbles are behind the start button */
-  }
-  
-  .submission {
-    padding: 10px 20px;
-    background-color: lightblue;
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: center;
-    transition: transform 0.2s;
-    width: 90px;
-  }
-  
-  .submission:hover {
-    background-color: lightgreen;
-  }
-  
-  .submission.clicked {
-    background-color: lightcoral;
-    transform: scale(1.1);
-  }
-  
-  /* Adjust position of left bubbles */
-  .submission:nth-child(1) {
-    position: absolute;
-    top: 0; /* Top-left */
-    left: -100px; /* Move 100px to the left */
-  }
-  
-  .submission:nth-child(2) {
-    position: absolute;
-    top: 0; /* Top-right */
-    right: -100px; /* Move 100px to the right */
-  }
-  
-  .submission:nth-child(3) {
-    position: absolute;
-    bottom: 0; /* Bottom-right */
-    right: -100px; /* Move 100px to the right */
-  }
-  
-  .submission:nth-child(4) {
-    position: absolute;
-    bottom: 0; /* Bottom-left */
-    left: -100px; /* Move 100px to the left */
-  }
-  
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+  position: relative;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.start-button {
+  font-size: 36px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.timer {
+  font-size: 24px;
+  margin-top: 20px;
+  position: absolute;
+  top: calc(50% - 35px);
+}
+
+.hidden {
+  display: none;
+}
+
+.submissions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  height: 200px;
+  flex-wrap: wrap;
+  z-index: 5;
+}
+
+/* Define position for each bubble */
+.submission {
+  padding: 10px 20px;
+  background-color: lightblue;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s;
+  width: 90px;
+  min-height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1; /* Ensure visibility */
+}
+
+/* Hover effects */
+.submission:hover {
+  background-color: lightgreen;
+}
+
+.submission.clicked {
+  background-color: lightcoral;
+  transform: scale(1.1);
+}
+
+/* Position the pre-created bubbles */
+.submission:nth-child(1) {
+  position: absolute;
+  top: 0;
+  left: -100px;
+}
+
+.submission:nth-child(2) {
+  position: absolute;
+  top: 0;
+  right: -100px;
+}
+
+.submission:nth-child(3) {
+  position: absolute;
+  bottom: 0;
+  right: -100px;
+}
+
+.submission:nth-child(4) {
+  position: absolute;
+  bottom: 0;
+  left: -100px;
+}
