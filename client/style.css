@@ -50,18 +50,20 @@ body {
 }
 
 .submission {
-  padding: 20px 40px; /* Increased padding */
+  padding: 20px 40px;
   background-color: lightblue;
-  border-radius: 20px; /* Increased border radius */
+  border-radius: 20px;
   cursor: pointer;
   text-align: center;
   transition: transform 0.2s;
-  width: 180px; /* Increased width */
-  min-height: 80px; /* Increased height */
+  width: 180px;
+  min-height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1; /* Ensure visibility */
+  opacity: 1;
+  font-size: 28px; /* ⬅️ Add this line */
+  font-weight: bold; /* Optional */
 }
 
 .submission:hover {
@@ -76,26 +78,26 @@ body {
 /* Position the pre-created bubbles with adjusted positions */
 .submission:nth-child(1) {
   position: absolute;
-  top: 0;
-  left: -150px; /* Adjusted position */
+  top: -75px;     /* Moved up 100px */
+  left: -250px;    /* Moved left an additional 100px from -150 */
 }
 
 .submission:nth-child(2) {
   position: absolute;
-  top: 0;
-  right: -150px; /* Adjusted position */
+  top: -75px;     /* Moved up 100px */
+  right: -250px;   /* Moved right an additional 200px from -150 */
 }
 
 .submission:nth-child(3) {
   position: absolute;
-  bottom: 0;
-  right: -150px; /* Adjusted position */
+  bottom: -75px;  /* Moved down 100px */
+  right: -250px;   /* Moved right an additional 100px from -150 */
 }
 
 .submission:nth-child(4) {
   position: absolute;
-  bottom: 0;
-  left: -150px; /* Adjusted position */
+  bottom: -75px;  /* Moved down 100px */
+  left: -250px;    /* Moved left an additional 100px from -150 */
 }
 
 /* Initial styling for the toggle button */

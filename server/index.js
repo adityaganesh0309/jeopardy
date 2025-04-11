@@ -1,8 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const http = require('http');
 const WebSocket = require('ws');
 const app = express();
 const PORT = 3000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Create HTTP server for Express
 const server = http.createServer(app);
@@ -30,7 +34,8 @@ wss.on('connection', (ws) => {
 
 // Endpoint to handle form submission (POST request)
 app.post('/submit-form', (req, res) => {
-    const { name, answer, wager } = req.body; // Extract the form data
+    const { name = '', answer = '', wager = '' } = req.body || {};
+    console.log({ name, answer, wager });
 
     // Save the form submission to the array
     formResponses.push({ name, answer, wager });
@@ -49,7 +54,7 @@ app.post('/submit-form', (req, res) => {
 });
 
 // Endpoint to view all form submissions
-app.get('/view-submissions', (req, res) => {
+app.get('/view-submissions', (res) => {
     res.json({ submissions: formResponses });
 });
 
