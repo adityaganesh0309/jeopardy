@@ -18,14 +18,32 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log('Connected to WebSocket server');
   };
 
+  const wagers = {}; // global store for name-wager pairs
+
   // Handle incoming data from WebSocket
   socket.onmessage = (event) => {
     if (isTimerActive) {
       const submission = JSON.parse(event.data);
-      showSubmission(submission.name, submission.answer, submission.wager);
+      showSubmission(submission.name, submission.answer);
+    } else { // This means we are accepting wagers
+      try {
+        const data = JSON.parse(event.data);
+  
+        // Check if both 'name' and 'wager' fields exist
+        if (data.name && data.wager !== undefined) {
+          // Store or overwrite the wager for the name
+          wagers[data.name] = data.wager;
+          console.log(`Wager received: ${data.name} -> ${data.wager}`);
+        } else {
+          // Data is invalid — missing fields
+          console.warn("Invalid wager data received:", data);
+        }
+      } catch (e) {
+        console.error("Failed to parse wager data:", e);
+      }
     }
   };
-
+  
   // Handle WebSocket errors
   socket.onerror = (error) => {
     console.error('WebSocket Error:', error);
@@ -78,18 +96,21 @@ document.addEventListener("DOMContentLoaded", () => {
   
       bubble.addEventListener('click', function () {
         const isFinalJeopardy = toggleStatus.textContent === "On";
-  
         if (isFinalJeopardy) {
           // Final Jeopardy: name -> answer -> wager -> clear
           if (bubble.dataset.state === "name") {
             bubble.textContent = answer;
             bubble.dataset.state = "answer";
+            bubble.dataset.name = name; // Store the name for later wager lookup
           } else if (bubble.dataset.state === "answer") {
-            bubble.textContent = wager;
+            const name = bubble.dataset.name;
+            const wager = wagers[name]; // Lookup wager using stored name
+            bubble.textContent = wager !== undefined ? `$${wager}` : "[no wager]";
             bubble.dataset.state = "wager";
           } else {
             bubble.textContent = "";
             bubble.dataset.state = "name";
+            delete bubble.dataset.name; // Optional: clear stored name
           }
         } else {
           // Regular: name -> answer -> clear
@@ -100,12 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
             bubble.textContent = "";
             bubble.dataset.state = "name";
           }
-        }
+        }        
       });
     }
   }
   
-
   // Function to play the bubble sound
   function playBubbleSound() {
     const bubbleSound = new Audio('bubble_sound.mp3');
