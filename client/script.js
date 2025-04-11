@@ -91,4 +91,20 @@ document.addEventListener("DOMContentLoaded", () => {
     bubbleSound.play();
   }
 
+  // Toggle final button movement
+  const finalToggle = document.getElementById('finalToggle');
+  const toggleStatus = document.getElementById('toggleStatus'); // Get the span element
+
+  finalToggle.addEventListener('click', () => {
+    // Toggle the "on" class and update the color of the button
+    finalToggle.classList.toggle('on');
+
+    // Update the status text based on the toggle's state
+    if (finalToggle.classList.contains('on')) {
+      toggleStatus.textContent = 'On'; // Set text to "On"
+    } else {
+      toggleStatus.textContent = 'Off'; // Set text to "Off"
+    }
+  });
+  
 });
