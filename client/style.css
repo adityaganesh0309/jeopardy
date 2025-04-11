@@ -18,18 +18,18 @@ body {
 }
 
 .start-button {
-  font-size: 36px;
-  padding: 10px 20px;
+  font-size: 72px; /* Increased font size */
+  padding: 20px 40px; /* Increased padding */
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 20px; /* Increased border radius */
   z-index: 10;
 }
 
 .timer {
-  font-size: 24px;
-  margin-top: 20px;
+  font-size: 48px; /* Increased font size */
+  margin-top: 40px; /* Increased margin */
   position: absolute;
-  top: calc(50% - 35px);
+  top: calc(50% - 70px); /* Adjusted position */
 }
 
 .hidden {
@@ -43,29 +43,27 @@ body {
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-between;
-  width: 200px;
-  height: 200px;
+  width: 400px; /* Increased width */
+  height: 400px; /* Increased height */
   flex-wrap: wrap;
   z-index: 5;
 }
 
-/* Define position for each bubble */
 .submission {
-  padding: 10px 20px;
+  padding: 20px 40px; /* Increased padding */
   background-color: lightblue;
-  border-radius: 10px;
+  border-radius: 20px; /* Increased border radius */
   cursor: pointer;
   text-align: center;
   transition: transform 0.2s;
-  width: 90px;
-  min-height: 40px;
+  width: 180px; /* Increased width */
+  min-height: 80px; /* Increased height */
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 1; /* Ensure visibility */
 }
 
-/* Hover effects */
 .submission:hover {
   background-color: lightgreen;
 }
@@ -75,27 +73,27 @@ body {
   transform: scale(1.1);
 }
 
-/* Position the pre-created bubbles */
+/* Position the pre-created bubbles with adjusted positions */
 .submission:nth-child(1) {
   position: absolute;
   top: 0;
-  left: -100px;
+  left: -150px; /* Adjusted position */
 }
 
 .submission:nth-child(2) {
   position: absolute;
   top: 0;
-  right: -100px;
+  right: -150px; /* Adjusted position */
 }
 
 .submission:nth-child(3) {
   position: absolute;
   bottom: 0;
-  right: -100px;
+  right: -150px; /* Adjusted position */
 }
 
 .submission:nth-child(4) {
   position: absolute;
   bottom: 0;
-  left: -100px;
+  left: -150px; /* Adjusted position */
 }
