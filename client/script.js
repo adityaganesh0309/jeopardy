@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.onmessage = (event) => {
     if (isTimerActive) {
       const submission = JSON.parse(event.data);
-      showSubmission(submission.name, submission.answer);
+      showSubmission(submission.name, submission.answer, submission.wager);
     }
   };
 
@@ -64,26 +64,47 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Function to update the text of a bubble
-  function showSubmission(name, answer) {
+  function showSubmission(name, answer, wager) {
     const bubble = Array.from(submissionsContainer.getElementsByClassName('submission'))
                         .find(bubble => bubble.textContent === '');
-    
+    const toggleStatus = document.getElementById('toggleStatus');
+  
     if (bubble) {
-      // Show the name initially
-      bubble.textContent = name; 
-      playBubbleSound();  // Play sound when bubble updates
-      
-      // Add the click event listener to toggle between name and answer
-      bubble.addEventListener('click', function() {
-        if (bubble.textContent === name) {
-          bubble.textContent = answer;  // Show answer when name is displayed
-        } else if (bubble.textContent === answer) {
-          bubble.textContent = '';  // Clear the bubble when answer is displayed
+      bubble.textContent = name;
+      playBubbleSound();
+  
+      // Keep track of state using a data attribute
+      bubble.dataset.state = "name";
+  
+      bubble.addEventListener('click', function () {
+        const isFinalJeopardy = toggleStatus.textContent === "On";
+  
+        if (isFinalJeopardy) {
+          // Final Jeopardy: name -> answer -> wager -> clear
+          if (bubble.dataset.state === "name") {
+            bubble.textContent = answer;
+            bubble.dataset.state = "answer";
+          } else if (bubble.dataset.state === "answer") {
+            bubble.textContent = wager;
+            bubble.dataset.state = "wager";
+          } else {
+            bubble.textContent = "";
+            bubble.dataset.state = "name";
+          }
+        } else {
+          // Regular: name -> answer -> clear
+          if (bubble.dataset.state === "name") {
+            bubble.textContent = answer;
+            bubble.dataset.state = "answer";
+          } else {
+            bubble.textContent = "";
+            bubble.dataset.state = "name";
+          }
         }
       });
     }
   }
-
+  
 
   // Function to play the bubble sound
   function playBubbleSound() {
