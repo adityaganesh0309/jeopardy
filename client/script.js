@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTrackIndex = 0;
   backgroundMusic.src = musicTracks[currentTrackIndex];
   const alarmSound = document.getElementById('alarmSound');
-  
+  alarmSound.volume = 0.75;
+
   let timerInterval;
   let isTimerActive = false;
   
@@ -59,10 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
     
     startButton.style.display = 'none';
     timer.classList.remove('hidden');
-    let timeLeft = 35;
+    let timeLeft = 30;
     timeRemaining.textContent = timeLeft;
     isTimerActive = true;
     backgroundMusic.load();
+    backgroundMusic.volume = 0.5;
     backgroundMusic.play();
 
     // Start countdown
